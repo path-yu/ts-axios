@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "ts-axios",
   "version": "0.0.0",
   "description": "",
@@ -11,19 +10,6 @@
     "dist"
   ],
   "author": "pathYu <1974675011@qq.com>",
-=======
-  "name": "--libraryname--",
-  "version": "0.0.0",
-  "description": "",
-  "keywords": [],
-  "main": "dist/--libraryname--.umd.js",
-  "module": "dist/--libraryname--.es5.js",
-  "typings": "dist/types/--libraryname--.d.ts",
-  "files": [
-    "dist"
-  ],
-  "author": "--username-- <--usermail-->",
->>>>>>> af8f74d489efae2308bb064f214ccbe114352d0b
   "repository": {
     "type": "git",
     "url": ""

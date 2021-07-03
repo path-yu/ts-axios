@@ -37,7 +37,7 @@ export function isObjet(val: any): val is Object {
  * @return {boolean} 如果value是普通对象，则为True，否则为false
  */
 export function isPlainObject(val: any): val is Object {
-  if (toString.call(val) !== '[object object]') {
+  if (toString.call(val) !== '[object Object]') {
     return false
   }
   const prototype = Object.getPrototypeOf(val)

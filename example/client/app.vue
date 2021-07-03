@@ -1,30 +1,39 @@
 <template >  
     <div>
     .container Hello {{bundler}}
+    
     </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import {axios} from "../../src/ts-axios";
-export default Vue.extend({
+import axios from "../../src/axios"
+export default {
   data() {
     return {
-      bundler: 'Parcel'
+      bundler: '444'
     }
   },
   created(){
-    axios({
-      url:'http://localhost:3000/index',
-      data:{
-        age:434,
-      },
-      method:'get',
-    }).then(res => {
-      console.log(res);
-    })
-  }
-})
+    // axios({
+    //   url:'http://localhost:3000/index',
+    //   method:'post',
+    //   params:{
+    //     age:434
+    //   },
+    
+    // }).then(res => {
+    //   console.log(res);
+    // })
+
+  axios({
+    method: 'post',
+    url: '/profile',
+    data: {
+      name:'ddd'
+    }
+  })
+  },
+}
 </script>
 
 <style scoped>

@@ -1,14 +1,14 @@
-import cookie from '../helper/cookie'
-import { createError } from '../helper/error'
-import { parseHeaders } from '../helper/headers'
-import { isURLSameOrigin } from '../helper/url'
-import { deepMerge, isFormData } from '../helper/utils'
+import cookie from '../helpers/cookie'
+import { createError } from '../helpers/error'
+import { parseHeaders } from '../helpers/headers'
+import { isURLSameOrigin } from '../helpers/url'
+import { deepMerge, isFormData } from '../helpers/utils'
 import { AxiosRequestConfig } from '../types'
-import { AxiosPromise, AxiosResponse } from './../types/index'
+import { AxiosPromise, AxiosResponse } from '../types/index'
 function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
     const {
-      data: RequestData = null,
+      data= null,
       url,
       method = 'get',
       headers,
@@ -22,8 +22,10 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
       xsrfHeaderName,
       auth,
       cancelToken
-    } = config
-    const request = new XMLHttpRequest()
+    } = config;
+    
+    const request = new XMLHttpRequest();
+
     // 第三个参数为 async 是否是异步请求
     //!.的意思是断言，这里可以保证运行 时 url 是有值的
     request.open(method.toUpperCase(), url!, true)
@@ -34,7 +36,7 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
     processHeaders()
     processCancel()
 
-    request.send(RequestData)
+    request.send(data)
 
     function configureRequest(): void {
       // 设置响应数据类型
@@ -66,6 +68,15 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
         }
         handleResponse(response)
       }
+      // 处理网络异常错误
+      request.onerror = () => {
+        reject(new Error('Network Error'));
+      }
+      // 处理请求超时错误
+      request.ontimeout = () => {
+        reject(new Error(`Timeout of ${timeout} ms exceeded`))
+      };
+
     }
     // 处理请求头数据
     function processHeaders(): void {
@@ -90,9 +101,10 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
       if (auth) {
         headers['Authorization'] = `Basic ${btoa(`${auth.username} : ${auth.password}`)}`
       }
-      Object.keys(headers).forEach(name => {
+      
+      headers && Object.keys(headers).forEach(name => {
         // 如果 data 为 null headers 的 content-type 属性没有意义
-        if (RequestData === null && name.toLowerCase() === 'content-type') {
+        if (data === null && name.toLowerCase() === 'content-type') {
           delete headers[name]
         } else {
           request.setRequestHeader(name, headers[name])
@@ -111,9 +123,10 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
      * 处理响应数据
      */
     function handleResponse(response: AxiosResponse) {
-      const { status } = response
+      const { status } = response;
       if (!validateStatus || validateStatus(status)) {
-        resolve(response)
+        resolve(response);
+        
       } else {
         reject(
           createError(`Request failed with status code ${status}`, config, null, request, response)
@@ -124,3 +137,4 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
 }
 
 export { xhrAdapter }
+
