@@ -13,5 +13,8 @@ router.post('/base/post',(req,res,next) => {
   res.send({
     data:434
   });
-})
+});
+router.get('/interceptor/get', function (req, res) {
+    res.end('hello ')
+  })
 module.exports = router;

@@ -6,7 +6,7 @@ interface URLOrigin {
   host: string
 }
 /**
- * @description: 检测当前请求url是否与当前位置相同
+ * @description: 检测当前请求url是否与当前位置相同 判断是否为同域请求
  * @param {string} requestURL 当前请求的url
  * @return {boolean}
  */

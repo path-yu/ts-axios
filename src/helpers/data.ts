@@ -8,13 +8,11 @@ import { isPlainObject } from "./utils";
  * @return {any} 返回序列化后的h数据
  */
 export function transformRequest(data: any): any {
-    console.log(isPlainObject(data));
-    
     if (isPlainObject(data)) {
         return JSON.stringify(data)
     }
     return data;
-}
+} 
 
 /**
  * @description: 将响应数据做一层转换, 当服务端返回给我们的是字符串类型,
@@ -27,7 +25,7 @@ export function transformResponse(data: any): any {
         try {
             data = JSON.parse(data);
         } catch (error) {
-            console.error(error);
+            // console.error(error);
         }
     }
     return data;

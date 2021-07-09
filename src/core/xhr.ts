@@ -2,7 +2,7 @@ import cookie from '../helpers/cookie'
 import { createError } from '../helpers/error'
 import { parseHeaders } from '../helpers/headers'
 import { isURLSameOrigin } from '../helpers/url'
-import { deepMerge, isFormData } from '../helpers/utils'
+import { isFormData } from '../helpers/utils'
 import { AxiosRequestConfig } from '../types'
 import { AxiosPromise, AxiosResponse } from '../types/index'
 function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
@@ -25,18 +25,16 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
     } = config;
     
     const request = new XMLHttpRequest();
-
     // 第三个参数为 async 是否是异步请求
     //!.的意思是断言，这里可以保证运行 时 url 是有值的
     request.open(method.toUpperCase(), url!, true)
-    var result = deepMerge({ foo: 123, age: 434 }, { foo: 456 })
 
-    configureRequest()
-    addEvents()
-    processHeaders()
-    processCancel()
+    configureRequest();
+    addEvents();
+    processHeaders();
+    processCancel();
 
-    request.send(data)
+    request.send(data);
 
     function configureRequest(): void {
       // 设置响应数据类型
