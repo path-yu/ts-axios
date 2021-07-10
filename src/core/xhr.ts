@@ -36,6 +36,7 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
 
     request.send(data);
 
+    // 配置Request对象
     function configureRequest(): void {
       // 设置响应数据类型
       if (responseType) {
@@ -49,7 +50,7 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
         request.withCredentials = withCredentials
       }
     }
-    // 监听请求的事件
+    // 给Request添加事件处理函数
     function addEvents(): void {
       request.onreadystatechange = () => {
         if (request.readyState !== 4 || request.status === 0) return
@@ -76,7 +77,7 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
       };
 
     }
-    // 处理请求头数据
+    // 处理请求headers
     function processHeaders(): void {
       /*
        * 如果请求是个FormData类型, 则山headers[content-type]
@@ -109,6 +110,7 @@ function xhrAdapter(config: AxiosRequestConfig): AxiosPromise {
         }
       })
     }
+    // 处理取消请求逻辑
     function processCancel(): void {
       if (cancelToken) {
         cancelToken.promise.then(reason => {

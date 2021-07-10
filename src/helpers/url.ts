@@ -1,5 +1,4 @@
-import { Method } from './../types/index';
-import { deepMerge, isDate, isPlainObject, isURLSearchParams } from "./utils";
+import { isDate, isPlainObject, isURLSearchParams } from "./utils";
 
 interface URLOrigin {
   protocol: string
@@ -114,26 +113,8 @@ export function isAbsoluteURL(url:string) :boolean{
  * @param {string} relativeURL 相对的url
  * @returns {string} 组合的新url
  */
-export function combineURLs(baseURL:string, relativeURL?:string):string {
+export function combineURL(baseURL:string, relativeURL?:string):string {
   return relativeURL
     ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
     : baseURL;
-}
-/**
- * @description: 
- * @param {any} headers
- * @param {Method} method
- * @return {*}
- */
-export function flattenHeaders(headers: any, method:Method):any {
-  if (!headers) return
-  
-  headers = deepMerge(headers.common, headers[method], headers);
-
-  const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common'];
-
-  methodsToDelete.forEach(method => {
-    delete headers[method];
-  })
-  return headers;
 }

@@ -27,7 +27,7 @@ export function isArray(val: any): val is any[] {
  * @returns {boolean} 如果value为Object则为true, 否者为false;
  */
 
-export function isObjet(val: any): val is Object {
+export function isObject(val: any): val is Object {
   return val !== null && typeof val === 'object'
 }
 /**

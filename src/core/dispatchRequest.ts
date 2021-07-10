@@ -1,4 +1,5 @@
-import { buildURL, combineURLs, flattenHeaders, isAbsoluteURL } from '../helpers/url';
+import { flattenHeaders } from '../helpers/headers';
+import { buildURL, combineURL, isAbsoluteURL } from '../helpers/url';
 import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from './../types/index';
 import { transform } from './transform';
 import { xhrAdapter } from './xhr';
@@ -34,7 +35,7 @@ function precessConfig(config:AxiosRequestConfig) :void{
     const { params, paramsSerializer, baseURL } = config;
     let { url } = config;
     if (baseURL && !isAbsoluteURL(url!)) {
-        url = combineURLs(baseURL, url);
+        url = combineURL(baseURL, url);
      }
     // 这里可以保证运行时 url 是有值的
     return buildURL(url!, params, paramsSerializer);
